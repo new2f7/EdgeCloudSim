@@ -16,26 +16,37 @@ import java.util.concurrent.TimeUnit;
 
 public class SimUtils {
 
-    public static final Random RNG = new Random(System.currentTimeMillis());
-    
-    public static int getRandomNumber(int start, int end) {
-    	//return pd.sample();
+	public static final Random RNG = new Random(System.currentTimeMillis());
+
+	public static int getRandomNumber(int start, int end) {
+		//return pd.sample();
 		long range = (long)end - (long)start + 1;
 		long fraction = (long)(range * RNG.nextDouble());
 		return (int)(fraction + start); 
-    }
-    public static double getRandomDoubleNumber(double start, double end) {
-    	//return pd.sample();
+	}
+	public static double getRandomDoubleNumber(double start, double end) {
+		//return pd.sample();
 		double range = end - start;
 		double fraction = (range * RNG.nextDouble());
 		return (fraction + start); 
-    }
-    public static long getRandomLongNumber(int start, int end) {
-    	//return pd.sample();
+	}
+	public static long getRandomLongNumber(int start, int end) {
+		//return pd.sample();
 		long range = (long)end - (long)start + 1;
 		long fraction = (long)(range * RNG.nextDouble());
 		return (fraction + start); 
-    }
+	}
+
+	/**
+	 * Calculate distance between 2 Location objects.
+	 *
+	 * @param loc1
+	 * @param loc2
+	 * @return distance in meters
+	 */
+	public static double calculateDistance(Location loc1, Location loc2) {
+		return Math.sqrt(Math.pow(loc1.getXPos() - loc2.getXPos(), 2) + Math.pow(loc1.getYPos() - loc2.getYPos(), 2));
+	}
 
 	public static void cleanOutputFolder(String outputFolder){
 		//clean the folder where the result files will be saved
@@ -59,10 +70,11 @@ public class SimUtils {
 			System.exit(0);
 		}
 	}
+
 	public static String getTimeDifference(Date startDate, Date endDate){
 		String result = "";
 		long duration  = endDate.getTime() - startDate.getTime();
-
+		
 		long diffInMilli = TimeUnit.MILLISECONDS.toMillis(duration);
 		long diffInSeconds = TimeUnit.MILLISECONDS.toSeconds(duration);
 		long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(duration);
