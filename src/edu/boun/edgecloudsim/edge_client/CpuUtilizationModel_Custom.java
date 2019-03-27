@@ -33,13 +33,15 @@ public class CpuUtilizationModel_Custom implements UtilizationModel {
 	 */
 	@Override
 	public double getUtilization(double time) {
-		int index = 9;
+		/*int index = 9;
 		if(task.getAssociatedDatacenterId() == SimSettings.CLOUD_DATACENTER_ID)
 			index = 10;
 		else if(task.getAssociatedDatacenterId() == SimSettings.MOBILE_DATACENTER_ID)
 			index = 11;
 
-		return SimSettings.getInstance().getTaskLookUpTable()[task.getTaskType()][index];
+		return SimSettings.getInstance().getTaskLookUpTable()[task.getTaskType()][index];*/
+		// vm utilization in percent
+		return 100;
 	}
 	
 	public void setTask(Task _task){
@@ -47,7 +49,7 @@ public class CpuUtilizationModel_Custom implements UtilizationModel {
 	}
 	
 	public double predictUtilization(SimSettings.VM_TYPES _vmType){
-		int index = 0;
+		/*int index = 0;
 		if(_vmType == SimSettings.VM_TYPES.EDGE_VM)
 			index = 9;
 		else if(_vmType == SimSettings.VM_TYPES.CLOUD_VM)
@@ -58,6 +60,8 @@ public class CpuUtilizationModel_Custom implements UtilizationModel {
 			SimLogger.printLine("Unknown VM Type! Terminating simulation...");
 			System.exit(0);
 		}
-		return SimSettings.getInstance().getTaskLookUpTable()[task.getTaskType()][index];
+		return SimSettings.getInstance().getTaskLookUpTable()[task.getTaskType()][index];*/
+		// vm utilization in percent
+		return 100;
 	}
 }
