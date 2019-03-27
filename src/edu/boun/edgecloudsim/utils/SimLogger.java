@@ -149,7 +149,7 @@ public class SimLogger {
 	}
 
 	public void simStopped() throws IOException {
-		int numOfAppTypes = SimSettings.getInstance().getTaskLookUpTable().length;
+		int numOfAppTypes = SimSettings.getInstance().getTaskLookUpTable().size();
 
 		File successFile = null, failFile = null, vmLoadFile = null, locationFile = null;
 		FileWriter successFW = null, failFW = null, vmLoadFW = null, locationFW = null;
@@ -235,8 +235,8 @@ public class SimLogger {
 				if (i < numOfAppTypes) {
 					// if related app is not used in this simulation, just
 					// discard it
-					if (SimSettings.getInstance().getTaskLookUpTable()[i][0] == 0)
-						continue;
+					//if (SimSettings.getInstance().getTaskLookUpTable()[i][0] == 0)
+						//continue;
 
 					fileName = SimSettings.getInstance().getTaskName(i) + "_GENERIC.log";
 				}
@@ -449,12 +449,12 @@ public class SimLogger {
 
 			for (int i = 0; i < numOfAppTypes + 1; i++) {
 
-				if (i < numOfAppTypes) {
+				/*if (i < numOfAppTypes) {
 					// if related app is not used in this simulation, just
 					// discard it
 					if (SimSettings.getInstance().getTaskLookUpTable()[i][0] == 0)
 						continue;
-				}
+				}*/
 
 				// check if the divisor is zero in order to avoid division by
 				// zero problem
@@ -554,12 +554,12 @@ public class SimLogger {
 			vmLoadBW.close();
 			locationBW.close();
 			for (int i = 0; i < numOfAppTypes + 1; i++) {
-				if (i < numOfAppTypes) {
+				/*if (i < numOfAppTypes) {
 					// if related app is not used in this simulation, just
 					// discard it
 					if (SimSettings.getInstance().getTaskLookUpTable()[i][0] == 0)
 						continue;
-				}
+				}*/
 				genericBWs[i].close();
 			}
 		}
