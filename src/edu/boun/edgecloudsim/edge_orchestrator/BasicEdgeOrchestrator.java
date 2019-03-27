@@ -49,7 +49,7 @@ public class BasicEdgeOrchestrator extends EdgeOrchestrator {
 
 	@Override
 	public int getDeviceToOffload(Task task) {
-		int result = SimSettings.GENERIC_EDGE_DEVICE_ID;
+		/*int result = SimSettings.GENERIC_EDGE_DEVICE_ID;
 		if(!simScenario.equals("SINGLE_TIER")){
 			//decide to use cloud or Edge VM
 			int CloudVmPicker = SimUtils.getRandomNumber(0, 100);
@@ -60,7 +60,9 @@ public class BasicEdgeOrchestrator extends EdgeOrchestrator {
 				result = SimSettings.GENERIC_EDGE_DEVICE_ID;
 		}
 		
-		return result;
+		return result;*/
+		// always offload to cloud
+		return SimSettings.CLOUD_DATACENTER_ID;
 	}
 	
 	@Override
@@ -80,7 +82,7 @@ public class BasicEdgeOrchestrator extends EdgeOrchestrator {
 						selectedVM = vmArray.get(vmIndex);
 						selectedVmCapacity = targetVmCapacity;
 					}
-	            }
+				}
 			}
 		}
 		else if(simScenario.equals("TWO_TIER_WITH_EO"))
@@ -95,7 +97,7 @@ public class BasicEdgeOrchestrator extends EdgeOrchestrator {
 		EdgeVM selectedVM = null;
 		
 		Location deviceLocation = SimManager.getInstance().getMobilityModel().getLocation(task.getMobileDeviceId(), CloudSim.clock());
-		//in our scenasrio, serving wlan ID is equal to the host id
+		//in our scenario, serving wlan ID is equal to the host id
 		//because there is only one host in one place
 		int relatedHostId=deviceLocation.getServingWlanId();
 		List<EdgeVM> vmArray = SimManager.getInstance().getEdgeServerManager().getVmList(relatedHostId);

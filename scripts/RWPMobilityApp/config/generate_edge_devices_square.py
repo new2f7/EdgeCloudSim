@@ -21,18 +21,18 @@ attractiveness = "0"
 
 hosts_per_edge_device = 1
 
-host_cores   =      "8"
-host_mips    =   "4000"
-host_ram     =   "8000"
-host_storage = "200000"
+host_cores   = "0"
+host_mips    = "0"
+host_ram     = "0"
+host_storage = "0"
 
-vms_per_host = 2
+vms_per_host = 1
 vm_attributes = {'vmm': 'Xen'}
 
-vm_cores   =     "2"
-vm_mips    =  "1000"
-vm_ram     =  "2000"
-vm_storage = "50000"
+vm_cores   = "0"
+vm_mips    = "0"
+vm_ram     = "0"
+vm_storage = "0"
 ### configuration END
 
 
