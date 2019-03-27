@@ -15,6 +15,7 @@ import org.apache.commons.math3.distribution.NormalDistribution;
 import edu.boun.edgecloudsim.cloud_server.CloudServerManager;
 import edu.boun.edgecloudsim.cloud_server.DefaultCloudServerManager;
 import edu.boun.edgecloudsim.core.ScenarioFactory;
+import edu.boun.edgecloudsim.core.SimSettings;
 import edu.boun.edgecloudsim.edge_orchestrator.BasicEdgeOrchestrator;
 import edu.boun.edgecloudsim.edge_orchestrator.EdgeOrchestrator;
 import edu.boun.edgecloudsim.edge_server.DefaultEdgeServerManager;
@@ -25,9 +26,9 @@ import edu.boun.edgecloudsim.edge_client.mobile_processing_unit.DefaultMobileSer
 import edu.boun.edgecloudsim.edge_client.mobile_processing_unit.MobileServerManager;
 import edu.boun.edgecloudsim.mobility.MobilityModel;
 import edu.boun.edgecloudsim.mobility.RWPMobility;
-import edu.boun.edgecloudsim.task_generator.IdleActiveLoadGenerator;
 import edu.boun.edgecloudsim.task_generator.LoadGeneratorModel;
-import edu.boun.edgecloudsim.network.MM1Queue;
+import edu.boun.edgecloudsim.task_generator.StreamLoadGenerator;
+import edu.boun.edgecloudsim.network.AirTimeNetworkModel;
 import edu.boun.edgecloudsim.network.NetworkModel;
 
 public class SampleScenarioFactory implements ScenarioFactory {
@@ -54,7 +55,7 @@ public class SampleScenarioFactory implements ScenarioFactory {
 	
 	@Override
 	public LoadGeneratorModel getLoadGeneratorModel() {
-		return new IdleActiveLoadGenerator(numOfMobileDevice, simulationTime, simScenario);
+		return new StreamLoadGenerator(numOfMobileDevice, simulationTime, simScenario, SimSettings.getInstance().getTimeResolution());
 	}
 
 	@Override
@@ -64,6 +65,7 @@ public class SampleScenarioFactory implements ScenarioFactory {
 
 	@Override
 	public MobilityModel getMobilityModel() {
+		// TODO: move Distribution parameters to config
 		NormalDistribution velocityDistr = new NormalDistribution(1, 0.5);
 		NormalDistribution pauseTimeDistr = new NormalDistribution(8, 2);
 		return new RWPMobility(numOfMobileDevice, simulationTime, areaXSize, areaYSize, velocityDistr, pauseTimeDistr);
@@ -71,7 +73,7 @@ public class SampleScenarioFactory implements ScenarioFactory {
 
 	@Override
 	public NetworkModel getNetworkModel() {
-		return new MM1Queue(numOfMobileDevice, simScenario);
+		return new AirTimeNetworkModel(numOfMobileDevice, simScenario);
 	}
 
 	@Override
