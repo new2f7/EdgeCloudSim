@@ -57,12 +57,17 @@ public class AirTimeNetworkModel extends NetworkModel {
 	}
 
 	private double findAirTimeSlot(int sourceDeviceId, long bytesToTransmit) {
+		if(bytesToTransmit <= 0) {
+			SimLogger.printLine("ERROR: Nothing to transmit!");
+			System.exit(0);
+		}
+		
 		double bandwidthKbps = SimSettings.getInstance().getWlanBandwidth();
 		double bytesPerSecond = bandwidthKbps * 1000 / 8;
 		double transmissionTime = bytesToTransmit / bytesPerSecond;
 		
-		if(transmissionTime == 0) {
-			SimLogger.printLine("ERROR: Nothing to transmit!");
+		if(transmissionTime <= 0) {
+			SimLogger.printLine("ERROR: Transmission time less or equal zero!");
 			System.exit(0);
 		}
 		
@@ -72,7 +77,7 @@ public class AirTimeNetworkModel extends NetworkModel {
 		
 		/* The AirTimeNetworkModel is used together with the StreamLoadGeneratorModel.
 		 * There are a bunch of new tasks every time unit. The transmission needs to
-		 * be scheduled before the expected new tasks. The parameter 'resolution'
+		 * be scheduled before the expected new tasks. The variable 'maximumDelay'
 		 * marks the interval in which new tasks are expected.
 		 */
 		double maximumDelay = SimSettings.getInstance().getTimeResolution();
@@ -105,7 +110,7 @@ public class AirTimeNetworkModel extends NetworkModel {
 			
 		}
 		
-		// It is not possible to schedule the transmission. Return a delay of 0 which means transmission failure.
+		// It is not possible to schedule the transmission. Return a delay of 0 which indicates transmission failure.
 		return 0;
 	}
 
