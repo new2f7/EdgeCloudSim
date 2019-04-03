@@ -55,7 +55,7 @@ public class SampleScenarioFactory implements ScenarioFactory {
 	
 	@Override
 	public LoadGeneratorModel getLoadGeneratorModel() {
-		return new StreamLoadGenerator(numOfMobileDevice, simulationTime, simScenario, SimSettings.getInstance().getTimeResolution());
+		return new StreamLoadGenerator(numOfMobileDevice, simulationTime, simScenario);
 	}
 
 	@Override
@@ -65,9 +65,8 @@ public class SampleScenarioFactory implements ScenarioFactory {
 
 	@Override
 	public MobilityModel getMobilityModel() {
-		// TODO: move Distribution parameters to config
-		NormalDistribution velocityDistr = new NormalDistribution(1, 0.5);
-		NormalDistribution pauseTimeDistr = new NormalDistribution(8, 2);
+		NormalDistribution velocityDistr = new NormalDistribution(SimSettings.getInstance().getVelocityMean(), SimSettings.getInstance().getVelocitySd());
+		NormalDistribution pauseTimeDistr = new NormalDistribution(SimSettings.getInstance().getPauseTimeMean(), SimSettings.getInstance().getPauseTimeSd());
 		return new RWPMobility(numOfMobileDevice, simulationTime, areaXSize, areaYSize, velocityDistr, pauseTimeDistr);
 	}
 

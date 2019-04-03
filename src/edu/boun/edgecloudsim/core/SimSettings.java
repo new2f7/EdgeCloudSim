@@ -77,6 +77,10 @@ public class SimSettings {
 	private int AREA_X_SIZE;
 	private int AREA_Y_SIZE;
 	private double TIME_RESOLUTION;
+	private double VELOCITY_MEAN;
+	private double VELOCITY_SD;
+	private double PAUSE_TIME_MEAN;
+	private double PAUSE_TIME_SD;
 
 	private int NUM_OF_HOST_ON_CLOUD_DATACENTER;
 	private int NUM_OF_VM_ON_CLOUD_HOST;
@@ -145,6 +149,10 @@ public class SimSettings {
 			AREA_X_SIZE = Integer.parseInt(prop.getProperty("area_x_size"));
 			AREA_Y_SIZE = Integer.parseInt(prop.getProperty("area_y_size"));
 			TIME_RESOLUTION = Double.parseDouble(prop.getProperty("time_resolution"));
+			VELOCITY_MEAN = Double.parseDouble(prop.getProperty("velocity_mean"));
+			VELOCITY_SD = Double.parseDouble(prop.getProperty("velocity_sd"));
+			PAUSE_TIME_MEAN = Double.parseDouble(prop.getProperty("pause_time_mean"));
+			PAUSE_TIME_SD = Double.parseDouble(prop.getProperty("pause_time_sd"));
 
 			NUM_OF_HOST_ON_CLOUD_DATACENTER = Integer.parseInt(prop.getProperty("number_of_host_on_cloud_datacenter"));
 			NUM_OF_VM_ON_CLOUD_HOST = Integer.parseInt(prop.getProperty("number_of_vm_on_cloud_host"));
@@ -422,6 +430,34 @@ public class SimSettings {
 	 */
 	public double getTimeResolution() {
 		return TIME_RESOLUTION;
+	}
+
+	/**
+	 * returns mean velocity for the velocity normal distribution distribution (in meters per second unit) from properties file
+	 */
+	public double getVelocityMean() {
+		return VELOCITY_MEAN;
+	}
+
+	/**
+	 * returns standard deviation for the velocity normal distribution (in meters per second unit) from properties file
+	 */
+	public double getVelocitySd() {
+		return VELOCITY_SD;
+	}
+
+	/**
+	 * returns mean pause time for the pause time normal distribution (in seconds unit) from properties file
+	 */
+	public double getPauseTimeMean() {
+		return PAUSE_TIME_MEAN;
+	}
+
+	/**
+	 * returns standard deviation for the pause time normal distribution (in seconds unit) from properties file
+	 */
+	public double getPauseTimeSd() {
+		return PAUSE_TIME_SD;
 	}
 
 	/**
