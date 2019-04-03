@@ -14,14 +14,14 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.cloudbus.cloudsim.CloudletSchedulerTimeShared;
+import org.cloudbus.cloudsim.CloudletSchedulerSpaceShared;
 import org.cloudbus.cloudsim.Datacenter;
 import org.cloudbus.cloudsim.DatacenterCharacteristics;
 import org.cloudbus.cloudsim.Host;
 import org.cloudbus.cloudsim.Pe;
 import org.cloudbus.cloudsim.Storage;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
-import org.cloudbus.cloudsim.VmSchedulerSpaceShared;
+import org.cloudbus.cloudsim.VmSchedulerTimeShared;
 import org.cloudbus.cloudsim.core.CloudSim;
 import org.cloudbus.cloudsim.provisioners.BwProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.PeProvisionerSimple;
@@ -69,7 +69,7 @@ public class DefaultCloudServerManager extends CloudServerManager{
 				long bandwidth = 0;
 				
 				//VM Parameters		
-				CloudVM vm = new CloudVM(vmCounter, brockerId, mips, numOfCores, ram, bandwidth, storage, vmm, new CloudletSchedulerTimeShared());
+				CloudVM vm = new CloudVM(vmCounter, brockerId, mips, numOfCores, ram, bandwidth, storage, vmm, new CloudletSchedulerSpaceShared());
 				vmList.get(i).add(vm);
 				vmCounter++;
 			}
@@ -114,8 +114,7 @@ public class DefaultCloudServerManager extends CloudServerManager{
 		//    properties of a data center: architecture, OS, list of
 		//    Machines, allocation policy: time- or space-shared, time zone
 		//    and its price (G$/Pe time unit).
-		DatacenterCharacteristics characteristics = new DatacenterCharacteristics(
-                arch, os, vmm, hostList, time_zone, costPerSec, costPerMem, costPerStorage, costPerBw);
+		DatacenterCharacteristics characteristics = new DatacenterCharacteristics(arch, os, vmm, hostList, time_zone, costPerSec, costPerMem, costPerStorage, costPerBw);
 
 		// 6. Finally, we need to create a PowerDatacenter object.
 		Datacenter datacenter = null;
@@ -158,7 +157,7 @@ public class DefaultCloudServerManager extends CloudServerManager{
 					new BwProvisionerSimple(bandwidth), //kbps
 					storage,
 					peList,
-					new VmSchedulerSpaceShared(peList)
+					new VmSchedulerTimeShared(peList)
 				);
 			hostList.add(host);
 		}
