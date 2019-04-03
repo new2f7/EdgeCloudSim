@@ -26,6 +26,7 @@ import edu.boun.edgecloudsim.edge_server.EdgeVM;
 import edu.boun.edgecloudsim.edge_client.CpuUtilizationModel_Custom;
 import edu.boun.edgecloudsim.edge_client.Task;
 import edu.boun.edgecloudsim.utils.Location;
+import edu.boun.edgecloudsim.utils.SimLogger;
 import edu.boun.edgecloudsim.utils.SimUtils;
 
 public class BasicEdgeOrchestrator extends EdgeOrchestrator {
@@ -76,8 +77,9 @@ public class BasicEdgeOrchestrator extends EdgeOrchestrator {
 			for (int hostIndex=0; hostIndex < list.size(); hostIndex++) {
 				List<CloudVM> vmArray = SimManager.getInstance().getCloudServerManager().getVmList(hostIndex);
 				for(int vmIndex=0; vmIndex<vmArray.size(); vmIndex++){
-					double requiredCapacity = ((CpuUtilizationModel_Custom)task.getUtilizationModelCpu()).predictUtilization(vmArray.get(vmIndex).getVmType());
-					double targetVmCapacity = (double)100 - vmArray.get(vmIndex).getCloudletScheduler().getTotalUtilizationOfCpu(CloudSim.clock());
+					double requiredCapacity = task.getUtilizationModelCpu().getUtilization(CloudSim.clock());
+					double targetVmCapacity = 1 - vmArray.get(vmIndex).getCloudletScheduler().getTotalUtilizationOfCpu(CloudSim.clock());
+					//SimLogger.printLine("Capacity of VM " + vmArray.get(vmIndex).getId() + ": " + targetVmCapacity);
 					if(requiredCapacity <= targetVmCapacity && targetVmCapacity > selectedVmCapacity){
 						selectedVM = vmArray.get(vmIndex);
 						selectedVmCapacity = targetVmCapacity;

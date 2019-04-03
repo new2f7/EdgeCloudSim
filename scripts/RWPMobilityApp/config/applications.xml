@@ -1,21 +1,22 @@
 <?xml version="1.0"?>
+<!-- Setting reply_size to '1' indicates that the task should not be transmitted back to the mobile device. '0' is not valid value for reply_size! Otherwise specify reply_size in Bytes. -->
 <applications>
 	<application name="RELAXED_PROCESSING">
 		<video_x_size>1920</video_x_size>
 		<video_y_size>1080</video_y_size>
 		<bits_per_pixel>24</bits_per_pixel>
 		<frames_per_second>24</frames_per_second>
-		<compression_factor>0.05</compression_factor>
+		<compression_factor>0.01</compression_factor>
 		<instructions_per_pixel>10</instructions_per_pixel>
-		<reply_size>0</reply_size>
+		<reply_size>1</reply_size>
 	</application>
 	<application name="CRISIS_PROCESSING">
 		<video_x_size>1920</video_x_size>
 		<video_y_size>1080</video_y_size>
 		<bits_per_pixel>24</bits_per_pixel>
 		<frames_per_second>24</frames_per_second>
-		<compression_factor>0.05</compression_factor>
+		<compression_factor>0.01</compression_factor>
 		<instructions_per_pixel>5000</instructions_per_pixel>
-		<reply_size>0</reply_size>
+		<reply_size>1</reply_size>
 	</application>
 </applications>
