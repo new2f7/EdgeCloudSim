@@ -565,47 +565,77 @@ public class SimLogger {
 		}
 
 		// printout important results
+
+		int totalNumOfTasks = failedTask[numOfAppTypes] + completedTask[numOfAppTypes];
+		int totalNumOfTasksEdge = failedTaskOnEdge[numOfAppTypes] + completedTaskOnEdge[numOfAppTypes];
+		int totalNumOfTasksCloud = failedTaskOnCloud[numOfAppTypes] + completedTaskOnCloud[numOfAppTypes];
+		int totalNumOfTasksMobile = failedTaskOnMobile[numOfAppTypes] + completedTaskOnMobile[numOfAppTypes];
+
 		printLine("# of tasks (Edge/Cloud/Mobile): "
-				+ (failedTask[numOfAppTypes] + completedTask[numOfAppTypes]) + "("
-				+ (failedTaskOnEdge[numOfAppTypes] + completedTaskOnEdge[numOfAppTypes]) + "/" 
-				+ (failedTaskOnCloud[numOfAppTypes]+ completedTaskOnCloud[numOfAppTypes]) + "/" 
-				+ (failedTaskOnMobile[numOfAppTypes]+ completedTaskOnMobile[numOfAppTypes]) + ")");
-		
+				+ totalNumOfTasks + "("
+				+ totalNumOfTasksEdge + "/"
+				+ totalNumOfTasksCloud + "/"
+				+ totalNumOfTasksMobile + ")");
+
 		printLine("# of failed tasks (Edge/Cloud/Mobile): "
 				+ failedTask[numOfAppTypes] + "("
 				+ failedTaskOnEdge[numOfAppTypes] + "/"
 				+ failedTaskOnCloud[numOfAppTypes] + "/"
-				+ failedTaskOnMobile[numOfAppTypes] + ")");
-		
+				+ failedTaskOnMobile[numOfAppTypes] + ") - "
+				+ String.format("%.2f", ((double) failedTask[numOfAppTypes] * 100) / (double) totalNumOfTasks) + "%("
+				+ String.format("%.2f", ((double) failedTaskOnEdge[numOfAppTypes] * 100) / (double) totalNumOfTasksEdge) + "%/"
+				+ String.format("%.2f", ((double) failedTaskOnCloud[numOfAppTypes] * 100) / (double) totalNumOfTasksCloud) + "%/"
+				+ String.format("%.2f", ((double) failedTaskOnMobile[numOfAppTypes] * 100) / (double) totalNumOfTasksMobile) + "%)"
+				);
+
 		printLine("# of completed tasks (Edge/Cloud/Mobile): "
 				+ completedTask[numOfAppTypes] + "("
 				+ completedTaskOnEdge[numOfAppTypes] + "/"
 				+ completedTaskOnCloud[numOfAppTypes] + "/"
-				+ completedTaskOnMobile[numOfAppTypes] + ")");
-		
+				+ completedTaskOnMobile[numOfAppTypes] + ") - "
+				+ String.format("%.2f", ((double) completedTask[numOfAppTypes] * 100) / (double) totalNumOfTasks) + "%("
+				+ String.format("%.2f", ((double) completedTaskOnEdge[numOfAppTypes] * 100) / (double) totalNumOfTasksEdge) + "%/"
+				+ String.format("%.2f", ((double) completedTaskOnCloud[numOfAppTypes] * 100) / (double) totalNumOfTasksCloud) + "%/"
+				+ String.format("%.2f", ((double) completedTaskOnMobile[numOfAppTypes] * 100) / (double) totalNumOfTasksMobile) + "%)"
+				);
+
 		printLine("# of uncompleted tasks (Edge/Cloud/Mobile): "
 				+ uncompletedTask[numOfAppTypes] + "("
 				+ uncompletedTaskOnEdge[numOfAppTypes] + "/"
 				+ uncompletedTaskOnCloud[numOfAppTypes] + "/"
-				+ uncompletedTaskOnMobile[numOfAppTypes] + ")");
+				+ uncompletedTaskOnMobile[numOfAppTypes] + ") - "
+				+ String.format("%.2f", ((double) uncompletedTask[numOfAppTypes] * 100) / (double) totalNumOfTasks) + "%("
+				+ String.format("%.2f", ((double) uncompletedTaskOnEdge[numOfAppTypes] * 100) / (double) totalNumOfTasksEdge) + "%/"
+				+ String.format("%.2f", ((double) uncompletedTaskOnCloud[numOfAppTypes] * 100) / (double) totalNumOfTasksCloud) + "%/"
+				+ String.format("%.2f", ((double) uncompletedTaskOnMobile[numOfAppTypes] * 100) / (double) totalNumOfTasksMobile) + "%)"
+				);
 
 		printLine("# of failed tasks due to vm capacity (Edge/Cloud/Mobile): "
 				+ failedTaskDueToVmCapacity[numOfAppTypes] + "("
 				+ failedTaskDueToVmCapacityOnEdge[numOfAppTypes] + "/"
 				+ failedTaskDueToVmCapacityOnCloud[numOfAppTypes] + "/"
-				+ failedTaskDueToVmCapacityOnMobile[numOfAppTypes] + ")");
-		
-		printLine("# of failed tasks due to Mobility/Network(WLAN/MAN/WAN): "
-				+ failedTaskDuetoMobility[numOfAppTypes]
-				+ "/" + failedTaskDuetoBw[numOfAppTypes] 
-				+ "(" + failedTaskDuetoLanBw[numOfAppTypes] 
-				+ "/" + failedTaskDuetoManBw[numOfAppTypes] 
-				+ "/" + failedTaskDuetoWanBw[numOfAppTypes] + ")");
-		
-		printLine("percentage of failed tasks: "
-				+ String.format("%.6f", ((double) failedTask[numOfAppTypes] * (double) 100)
-						/ (double) (completedTask[numOfAppTypes] + failedTask[numOfAppTypes]))
-				+ "%");
+				+ failedTaskDueToVmCapacityOnMobile[numOfAppTypes] + ") - "
+				+ String.format("%.2f", ((double) failedTaskDueToVmCapacity[numOfAppTypes] * 100) / (double) totalNumOfTasks) + "%("
+				+ String.format("%.2f", ((double) failedTaskDueToVmCapacityOnEdge[numOfAppTypes] * 100) / (double) totalNumOfTasksEdge) + "%/"
+				+ String.format("%.2f", ((double) failedTaskDueToVmCapacityOnCloud[numOfAppTypes] * 100) / (double) totalNumOfTasksCloud) + "%/"
+				+ String.format("%.2f", ((double) failedTaskDueToVmCapacityOnMobile[numOfAppTypes] * 100) / (double) totalNumOfTasksMobile) + "%)"
+				);
+
+		printLine("# of failed tasks due to Network(WLAN/MAN/WAN): "
+				+ failedTaskDuetoBw[numOfAppTypes] + "("
+				+ failedTaskDuetoLanBw[numOfAppTypes] + "/"
+				+ failedTaskDuetoManBw[numOfAppTypes] + "/"
+				+ failedTaskDuetoWanBw[numOfAppTypes] + ") - "
+				+ String.format("%.2f", ((double) failedTaskDuetoBw[numOfAppTypes] * 100) / (double) totalNumOfTasks) + "%("
+				+ String.format("%.2f", ((double) failedTaskDuetoLanBw[numOfAppTypes] * 100) / (double) totalNumOfTasksEdge) + "%/"
+				+ String.format("%.2f", ((double) failedTaskDuetoManBw[numOfAppTypes] * 100) / (double) totalNumOfTasksCloud) + "%/"
+				+ String.format("%.2f", ((double) failedTaskDuetoWanBw[numOfAppTypes] * 100) / (double) totalNumOfTasksMobile) + "%)"
+				);
+
+		printLine("# of failed tasks due to Mobility: "
+				+ failedTaskDuetoMobility[numOfAppTypes] + " - "
+				+ String.format("%.2f", ((double) failedTaskDuetoMobility[numOfAppTypes] * 100) / (double) totalNumOfTasks) + "%"
+				);
 
 		printLine("average service time: "
 				+ String.format("%.6f", serviceTime[numOfAppTypes] / (double) completedTask[numOfAppTypes])
