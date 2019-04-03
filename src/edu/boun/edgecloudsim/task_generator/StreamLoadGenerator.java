@@ -21,9 +21,9 @@ public class StreamLoadGenerator extends LoadGeneratorModel{
 	private int taskTypeOfDevices[];
 	;
 
-	public StreamLoadGenerator(int _numberOfMobileDevices, double _simulationTime, String _simScenario, double _resolution) {
+	public StreamLoadGenerator(int _numberOfMobileDevices, double _simulationTime, String _simScenario) {
 		super(_numberOfMobileDevices, _simulationTime, _simScenario);
-		resolution = _resolution;
+		resolution = SimSettings.getInstance().getTimeResolution();
 	}
 
 	@Override
@@ -38,11 +38,14 @@ public class StreamLoadGenerator extends LoadGeneratorModel{
 		final long downloadSize = myAppProperties.getDownloadSize();
 		final long bytesPerTimeUnit = (int) Math.ceil(((double) myAppProperties.getBitsPerSecond()) * resolution / 8);
 		final long MIPerTimeUnit = (long) Math.ceil(myAppProperties.getInstructionsPerFrame() * myAppProperties.getFps() * resolution / 1000000);
+		// add different offset for each mobile device to avoid bursts
+		final double offset = resolution / numberOfMobileDevices;
 
 		for(int i=0; i<numberOfMobileDevices; i++) {
 			taskTypeOfDevices[i] = myTaskType;
+			double myOffset = offset*i;
 			for(double virtualTime=SimSettings.CLIENT_ACTIVITY_START_TIME; virtualTime<simulationTime; virtualTime+=resolution) {
-				taskList.add(new TaskProperty(virtualTime, i, myTaskType, PEs, MIPerTimeUnit, bytesPerTimeUnit, downloadSize));
+				taskList.add(new TaskProperty(virtualTime+myOffset, i, myTaskType, PEs, MIPerTimeUnit, bytesPerTimeUnit, downloadSize));
 			}
 		}
 	}
